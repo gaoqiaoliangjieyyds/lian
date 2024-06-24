@@ -5,10 +5,15 @@
   <groupId>com.jia</groupId>
   <artifactId>duanlianjie</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
   <name>duanlianjie</name>
   <url>http://maven.apache.org</url>
+  <modules>
+    <module>admin</module>
+    <module>gateway</module>
+    <module>project</module>
+  </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -99,6 +104,13 @@
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>${guava.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
