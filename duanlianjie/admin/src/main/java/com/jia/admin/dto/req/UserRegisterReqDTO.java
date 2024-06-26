@@ -15,23 +15,38 @@
  * limitations under the License.
  */
 
-package com.jia.admin.common.serialize;
+package com.jia.admin.dto.req;
 
-import cn.hutool.core.util.DesensitizedUtil;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-
-import java.io.IOException;
+import lombok.Data;
 
 /**
- * 手机号脱敏反序列化
+ * 用户注册请求参数
  */
-public class PhoneDesensitizationSerializer extends JsonSerializer<String> {
+@Data
+public class UserRegisterReqDTO {
 
-    @Override
-    public void serialize(String phone, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        String phoneDesensitization = DesensitizedUtil.mobilePhone(phone);
-        jsonGenerator.writeString(phoneDesensitization);
-    }
+    /**
+     * 用户名
+     */
+    private String username;
+
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 真实姓名
+     */
+    private String realName;
+
+    /**
+     * 手机号
+     */
+    private String phone;
+
+    /**
+     * 邮箱
+     */
+    private String mail;
 }
