@@ -2,8 +2,10 @@ package com.jia.admin.controller;
 
 import com.jia.admin.common.convention.result.Result;
 import com.jia.admin.common.convention.result.Results;
+import com.jia.admin.dto.req.UserLoginReqDTO;
 import com.jia.admin.dto.req.UserRegisterReqDTO;
 import com.jia.admin.dto.req.UserUpdateReqDTO;
+import com.jia.admin.dto.resp.UserLoginRespDTO;
 import com.jia.admin.dto.resp.UserRespDTO;
 import com.jia.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -47,5 +49,21 @@ public class UserController {
     public Result<Void> update(@RequestBody UserUpdateReqDTO requestParam) {
         userService.update(requestParam);
         return Results.success();
+    }
+
+    /**
+     * 用户登录
+     */
+    @PostMapping("/api/short-link/admin/v1/user/login")
+    public Result<UserLoginRespDTO> login(@RequestBody UserLoginReqDTO requestParam) {
+        return Results.success(userService.login(requestParam));
+    }
+
+    /**
+     * 检查用户是否登录
+     */
+    @GetMapping("/api/short-link/admin/v1/user/check-login")
+    public Result<Boolean> checkLogin(@RequestParam("username") String username, @RequestParam("token") String token) {
+        return Results.success(userService.checkLogin(username, token));
     }
 }
