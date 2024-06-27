@@ -31,6 +31,7 @@ rules:
         props:
           sharding-count: 16
   - !ENCRYPT
+# 身份证和手机号的脱敏处理
     tables:
       t_user:
         columns:
