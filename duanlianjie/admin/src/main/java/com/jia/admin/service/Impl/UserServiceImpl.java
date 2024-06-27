@@ -2,6 +2,7 @@ package com.jia.admin.service.Impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jia.admin.common.convention.exception.ClientException;
@@ -10,6 +11,7 @@ import com.jia.admin.common.enums.UserErrorCodeEnum;
 import com.jia.admin.dao.entity.UserDO;
 import com.jia.admin.dao.mapper.UserMapper;
 import com.jia.admin.dto.req.UserRegisterReqDTO;
+import com.jia.admin.dto.req.UserUpdateReqDTO;
 import com.jia.admin.dto.resp.UserRespDTO;
 import com.jia.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -72,6 +74,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         } finally {
             lock.unlock();
         }
+    }
+
+
+    @Override
+    public void update(UserUpdateReqDTO requestParam) {
+        LambdaUpdateWrapper<UserDO> updateWrapper = Wrappers.lambdaUpdate(UserDO.class)
+                .eq(UserDO::getUsername, requestParam.getUsername());
+        baseMapper.update(BeanUtil.toBean(requestParam, UserDO.class), updateWrapper);
     }
 
 }

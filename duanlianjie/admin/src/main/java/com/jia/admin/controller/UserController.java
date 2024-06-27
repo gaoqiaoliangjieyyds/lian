@@ -3,6 +3,7 @@ package com.jia.admin.controller;
 import com.jia.admin.common.convention.result.Result;
 import com.jia.admin.common.convention.result.Results;
 import com.jia.admin.dto.req.UserRegisterReqDTO;
+import com.jia.admin.dto.req.UserUpdateReqDTO;
 import com.jia.admin.dto.resp.UserRespDTO;
 import com.jia.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,15 @@ public class UserController {
     @PostMapping("/api/short-link/admin/v1/user")
     public Result<Void> register(@RequestBody UserRegisterReqDTO requestParam) {
         userService.register(requestParam);
+        return Results.success();
+    }
+
+    /**
+     * 修改用户
+     */
+    @PutMapping("/api/short-link/admin/v1/user")
+    public Result<Void> update(@RequestBody UserUpdateReqDTO requestParam) {
+        userService.update(requestParam);
         return Results.success();
     }
 }
