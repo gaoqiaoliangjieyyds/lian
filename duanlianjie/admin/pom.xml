@@ -75,6 +75,21 @@
                     <target>14</target>
                 </configuration>
             </plugin>
+
+<!--        打包的插件-->
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>repackage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+
         </plugins>
     </build>
 
