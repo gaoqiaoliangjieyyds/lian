@@ -108,6 +108,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         }
         Map<Object, Object> hasLoginMap = stringRedisTemplate.opsForHash().entries(USER_LOGIN_KEY + requestParam.getUsername());
         if (CollUtil.isNotEmpty(hasLoginMap)) {
+            //在Redis中存储和检查用户的登录会话，有效地防止了用户重复点击登录。
+            // 如果用户已经登录，直接返回现有的token，而不是创建新的会话，从而避免了重复登录。
             stringRedisTemplate.expire(USER_LOGIN_KEY + requestParam.getUsername(), 30L, TimeUnit.DAYS);
             String token = hasLoginMap.keySet().stream()
                     .findFirst()

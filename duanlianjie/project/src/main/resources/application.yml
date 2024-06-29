@@ -18,3 +18,6 @@ spring:
       host: 127.0.0.1
       port: 6379
       password: chen3131
+short-link:
+  domain:
+    default: https://www.baidu.com
