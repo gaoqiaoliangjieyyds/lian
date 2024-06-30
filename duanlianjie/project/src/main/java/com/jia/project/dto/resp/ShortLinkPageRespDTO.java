@@ -15,28 +15,18 @@
  * limitations under the License.
  */
 
-package com.jia.project.dao.entity;
+package com.jia.project.dto.resp;
 
-
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.jia.project.common.database.BaseDO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 /**
- * 短链接实体
+ * 短链接分页返回参数
  */
 @Data
-@Builder
-@TableName("t_link")
-@NoArgsConstructor
-@AllArgsConstructor
-public class ShortLinkDO extends BaseDO {
+public class ShortLinkPageRespDTO {
 
     /**
      * id
@@ -64,24 +54,9 @@ public class ShortLinkDO extends BaseDO {
     private String originUrl;
 
     /**
-     * 点击量
-     */
-    private Integer clickNum;
-
-    /**
      * 分组标识
      */
     private String gid;
-
-    /**
-     * 启用标识 0：启用 1：未启用
-     */
-    private Integer enableStatus;
-
-    /**
-     * 创建类型 0：接口创建 1：控制台创建
-     */
-    private Integer createdType;
 
     /**
      * 有效期类型 0：永久有效 1：自定义
@@ -89,14 +64,25 @@ public class ShortLinkDO extends BaseDO {
     private Integer validDateType;
 
     /**
+     * 启用标识 0：启用 1：未启用
+     */
+    private Integer enableStatus;
+
+    /**
      * 有效期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date validDate;
+
+    /**
+     * 创建时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createTime;
 
     /**
      * 描述
      */
-    @TableField("`describe`")
     private String describe;
 
     /**
@@ -104,4 +90,33 @@ public class ShortLinkDO extends BaseDO {
      */
     private String favicon;
 
+    /**
+     * 历史PV
+     */
+    private Integer totalPv;
+
+    /**
+     * 今日PV
+     */
+    private Integer todayPv;
+
+    /**
+     * 历史UV
+     */
+    private Integer totalUv;
+
+    /**
+     * 今日UV
+     */
+    private Integer todayUv;
+
+    /**
+     * 历史UIP
+     */
+    private Integer totalUip;
+
+    /**
+     * 今日UIP
+     */
+    private Integer todayUip;
 }

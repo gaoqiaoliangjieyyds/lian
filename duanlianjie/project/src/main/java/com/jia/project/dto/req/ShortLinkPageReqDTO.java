@@ -15,28 +15,26 @@
  * limitations under the License.
  */
 
-package com.jia.project.service;
+package com.jia.project.dto.req;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jia.project.dao.entity.ShortLinkDO;
-import com.jia.project.dto.req.ShortLinkCreateReqDTO;
-import com.jia.project.dto.req.ShortLinkPageReqDTO;
-import com.jia.project.dto.resp.ShortLinkCreateRespDTO;
-import com.jia.project.dto.resp.ShortLinkPageRespDTO;
+import lombok.Data;
 
 /**
- * 短链接接口层
+ * 短链接分页请求参数
  */
-public interface ShortLinkService extends IService<ShortLinkDO> {
+@Data
+public class ShortLinkPageReqDTO extends Page<ShortLinkDO> {
 
     /**
-     * 创建短链接
-     *
-     * @param requestParam 创建短链接请求参数
-     * @return 短链接创建信息
+     * 分组标识
      */
-    ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
+    private String gid;
 
-    IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam);
+    /**
+     * 排序标识
+     */
+    private String orderTag;
 }
