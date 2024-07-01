@@ -17,6 +17,7 @@ import com.jia.admin.dto.req.UserRegisterReqDTO;
 import com.jia.admin.dto.req.UserUpdateReqDTO;
 import com.jia.admin.dto.resp.UserLoginRespDTO;
 import com.jia.admin.dto.resp.UserRespDTO;
+import com.jia.admin.service.GroupService;
 import com.jia.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RBloomFilter;
@@ -46,6 +47,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     private final StringRedisTemplate stringRedisTemplate;
 
+    private final GroupService groupService;
+
+
     @Override
     public UserRespDTO getUserByUsername(String username) {
         LambdaQueryWrapper<UserDO> queryWrapper = Wrappers.lambdaQuery(UserDO.class)
@@ -71,6 +75,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         if (!hasUsername(requestParam.getUsername())) {
             throw new ClientException(USER_NAME_EXIST);
         }
+        //加锁是为了防止同一个用户名被多个线程同时注册
         RLock lock = redissonClient.getLock(LOCK_USER_REGISTER_KEY + requestParam.getUsername());
         if (!lock.tryLock()) {
             throw new ClientException(USER_NAME_EXIST);
@@ -80,6 +85,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
             if (inserted < 1) {
                 throw new ClientException(USER_SAVE_ERROR);
             }
+            //设置默认的分组名称
+            groupService.saveGroup("默认分组名称");
             userRegisterCachePenetrationBloomFilter.add(requestParam.getUsername());
         } catch (DuplicateKeyException ex) {
             throw new ClientException(USER_EXIST);

@@ -46,11 +46,12 @@ import static com.jia.admin.common.enums.UserErrorCodeEnum.USER_TOKEN_FAIL;
 @RequiredArgsConstructor
 public class UserTransmitFilter implements Filter {
 
+
     //放行不需要拦截的路径
     private static final List<String> IGNORE_URLS = Lists.newArrayList(
-            "/api/short-link/admin/v1/user",
-            "/api/short-link/admin/v1/user/login",
-            "/api/short-link/admin/v1/user/check-login"
+            "http://localhost:8000/api/short-link/admin/v1/user",
+            "http://localhost:8000/api/short-link/admin/v1/user/login",
+            "http://localhost:8000/api/short-link/admin/v1/user/check-login"
     );
 
     private final StringRedisTemplate stringRedisTemplate;
@@ -60,23 +61,24 @@ public class UserTransmitFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        StringBuffer requestURL = httpServletRequest.getRequestURL();
-        if (!IGNORE_URLS.contains(requestURL.toString())) {
+        String requestURL = httpServletRequest.getRequestURL().toString();
+        boolean isIgnoredURL = IGNORE_URLS.stream().anyMatch(url -> requestURL.startsWith(url));
+        if (!isIgnoredURL) {
             String method = httpServletRequest.getMethod();
-            if(!(Objects.equals(requestURL,"/api/short-link/admin/v1/user") && Objects.equals(method,"POST"))) {
+            if (!(Objects.equals(requestURL, "/api/short-link/admin/v1/user") && Objects.equals(method, "POST"))) {
                 String username = httpServletRequest.getHeader("username");
                 String token = httpServletRequest.getHeader("token");
-                if(!StrUtil.isAllNotBlank(username,token)) {
+                if (!StrUtil.isAllNotBlank(username, token)) {
                     returnJson((HttpServletResponse) servletResponse, JSON.toJSONString(Results.failure(new ClientException(USER_TOKEN_FAIL))));
                     return;
                 }
                 Object user;
                 try {
                     user = stringRedisTemplate.opsForHash().get(USER_LOGIN_KEY + username, token);
-                    if(Objects.isNull(user)) {
+                    if (Objects.isNull(user)) {
                         throw new ClientException(USER_TOKEN_FAIL);
                     }
-                }catch (Exception e) {
+                } catch (Exception e) {
                     returnJson((HttpServletResponse) servletResponse, JSON.toJSONString(Results.failure(new ClientException(USER_TOKEN_FAIL))));
                     return;
                 }

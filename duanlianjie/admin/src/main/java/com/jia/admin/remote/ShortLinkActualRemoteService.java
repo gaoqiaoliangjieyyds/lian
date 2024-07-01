@@ -25,9 +25,11 @@ import com.jia.admin.common.convention.result.Result;
 import com.jia.admin.remote.dto.req.ShortLinkCreateReqDTO;
 import com.jia.admin.remote.dto.req.ShortLinkPageReqDTO;
 import com.jia.admin.remote.dto.resp.ShortLinkCreateRespDTO;
+import com.jia.admin.remote.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import com.jia.admin.remote.dto.resp.ShortLinkPageRespDTO;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,6 +63,22 @@ public interface ShortLinkActualRemoteService {
         return JSON.parseObject(resultPageStr, new TypeReference<>() {
         });
     }
+
+
+    /**
+     * 查询分组短链接总量
+     *
+     * @param requestParam 分组短链接总量请求参数
+     * @return 查询分组短链接总量响应
+     */
+    default Result<List<ShortLinkGroupCountQueryRespDTO>> listGroupShortLinkCount(List<String> requestParam) {
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("requestParam", requestParam);
+        String resultPageStr = HttpUtil.get("http://127.0.0.1:8002/api/short-link/v1/count", requestMap);
+        return JSON.parseObject(resultPageStr, new TypeReference<>() {
+        });
+    }
+
 
 
 }
