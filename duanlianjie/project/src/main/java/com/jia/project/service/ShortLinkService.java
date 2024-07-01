@@ -23,7 +23,10 @@ import com.jia.project.dao.entity.ShortLinkDO;
 import com.jia.project.dto.req.ShortLinkCreateReqDTO;
 import com.jia.project.dto.req.ShortLinkPageReqDTO;
 import com.jia.project.dto.resp.ShortLinkCreateRespDTO;
+import com.jia.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import com.jia.project.dto.resp.ShortLinkPageRespDTO;
+
+import java.util.List;
 
 /**
  * 短链接接口层
@@ -39,4 +42,7 @@ public interface ShortLinkService extends IService<ShortLinkDO> {
     ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
 
     IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam);
+
+    List<ShortLinkGroupCountQueryRespDTO> listGroupShortLinkCount(List<String> requestParam);
 }
+

@@ -18,106 +18,65 @@
 package com.jia.project.dto.resp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 /**
- * 短链接分页返回参数
+ * 短链接监控访问记录响应参数
  */
 @Data
-public class ShortLinkPageRespDTO {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ShortLinkStatsAccessRecordRespDTO {
 
     /**
-     * id
+     * 访客类型
      */
-    private Long id;
+    private String uvType;
 
     /**
-     * 域名
+     * 浏览器
      */
-    private String domain;
+    private String browser;
 
     /**
-     * 短链接
+     * 操作系统
      */
-    private String shortUri;
+    private String os;
 
     /**
-     * 完整短链接
+     * ip
      */
-    private String fullShortUrl;
+    private String ip;
 
     /**
-     * 原始链接
+     * 访问网络
      */
-    private String originUrl;
+    private String network;
 
     /**
-     * 分组标识
+     * 访问设备
      */
-    private String gid;
+    private String device;
 
     /**
-     * 有效期类型 0：永久有效 1：自定义
+     * 地区
      */
-    private Integer validDateType;
+    private String locale;
 
     /**
-     * 启用标识 0：启用 1：未启用
+     * 用户信息
      */
-    private Integer enableStatus;
+    private String user;
 
     /**
-     * 有效期
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date validDate;
-
-    /**
-     * 创建时间
+     * 访问时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
-
-    /**
-     * 描述
-     */
-    private String describe;
-
-    /**
-     * 网站标识
-     */
-    private String favicon;
-
-
-    /**
-     * 历史PV
-     */
-    private Integer totalPv;
-
-    /**
-     * 今日PV
-     */
-    private Integer todayPv;
-
-    /**
-     * 历史UV
-     */
-    private Integer totalUv;
-
-    /**
-     * 今日UV
-     */
-    private Integer todayUv;
-
-    /**
-     * 历史UIP
-     */
-    private Integer totalUip;
-
-    /**
-     * 今日UIP
-     */
-    private Integer todayUip;
 }

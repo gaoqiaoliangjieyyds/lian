@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.jia.project.dto.req;
+package com.jia.project.dto.resp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -23,44 +23,29 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 短链接创建请求对象
+ * 短链接基础访问监控响应参数
  */
 @Data
-public class ShortLinkCreateReqDTO {
+public class ShortLinkStatsAccessDailyRespDTO {
 
     /**
-     * 域名
+     * 日期
      */
-    private String domain;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date date;
 
     /**
-     * 原始链接
+     * 访问量
      */
-    private String originUrl;
+    private Integer pv;
 
     /**
-     * 分组标识
+     * 独立访客数
      */
-    private String gid;
+    private Integer uv;
 
     /**
-     * 创建类型 0：接口创建 1：控制台创建
+     * 独立IP数
      */
-    private Integer createdType;
-
-    /**
-     * 有效期类型 0：永久有效 1：自定义
-     */
-    private Integer validDateType;
-
-    /**
-     * 有效期
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date validDate;
-
-    /**
-     * 描述
-     */
-    private String describe;
+    private Integer uip;
 }

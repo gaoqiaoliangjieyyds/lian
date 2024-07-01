@@ -15,28 +15,15 @@
  * limitations under the License.
  */
 
-package com.jia.project.dto.req;
+package com.jia.project.dto.resp;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.util.Date;
-
 /**
- * 短链接创建请求对象
+ * 短链接分组查询返回参数
  */
 @Data
-public class ShortLinkCreateReqDTO {
-
-    /**
-     * 域名
-     */
-    private String domain;
-
-    /**
-     * 原始链接
-     */
-    private String originUrl;
+public class ShortLinkGroupCountQueryRespDTO {
 
     /**
      * 分组标识
@@ -44,23 +31,7 @@ public class ShortLinkCreateReqDTO {
     private String gid;
 
     /**
-     * 创建类型 0：接口创建 1：控制台创建
+     * 短链接数量
      */
-    private Integer createdType;
-
-    /**
-     * 有效期类型 0：永久有效 1：自定义
-     */
-    private Integer validDateType;
-
-    /**
-     * 有效期
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date validDate;
-
-    /**
-     * 描述
-     */
-    private String describe;
+    private Integer shortLinkCount;
 }
