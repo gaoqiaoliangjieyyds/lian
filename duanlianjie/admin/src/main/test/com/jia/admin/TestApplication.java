@@ -57,10 +57,18 @@ public class TestApplication {
             "  UNIQUE KEY `idx_unique_username_gid` (`gid`,`username`) USING BTREE,\n" +
             "  KEY `index_group_username` (`username`)\n" +
             ") ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;";
+
+
+    public static final  String linkGoToSQL = "CREATE TABLE `t_link_goto_%d`(\n" +
+            "      `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',\n" +
+            "      `gid` varchar(32) DEFAULT 'default' COMMENT  '分组标识',\n" +
+            "      `full_short_url` varchar(128) DEFAULT NULL COMMENT '完整短链接',\n" +
+            "      PRIMARY KEY (`id`))\n" +
+            "      ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
     @Test
     public void contextLoads() {
         for (int i = 0; i < 16; i++) {
-            System.out.printf((groupSQL) + "%n", i);
+            System.out.printf((linkGoToSQL) + "%n", i);
         }
     }
 }
